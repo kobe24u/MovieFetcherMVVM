@@ -26,8 +26,28 @@ class MovieTableViewController: UIViewController {
         tableView.prefetchDataSource = self
         setupBasicUI()
         fetchMovies()
+        customizeRefreshController()
     }
 
+    //added refresh controlm, when user pull and release, the tableview will refresh
+    func customizeRefreshController(){
+        // Add Refresh Control to Table View, when the user pull and release it will refresh the tableview
+        if #available(iOS 10.0, *) {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action:  #selector(fetchMovies), for: .valueChanged)
+            
+            // Green color
+            let greenColor = UIColor(red: 10/255, green: 190/255, blue: 50/255, alpha: 1.0)
+            var attributes = [NSAttributedString.Key: AnyObject]()
+            attributes[.foregroundColor] = greenColor
+            //we will show the user a prompt message, when he pulls and release, the table view will refresh itself
+            let attributedString = NSAttributedString(string: "Pull and release to refresh...", attributes: attributes)
+            refreshControl.tintColor = greenColor
+            refreshControl.attributedTitle = attributedString
+            self.tableView.refreshControl = refreshControl
+        }
+    }
+    
     func setupBasicUI(){
         //hide the empty rows, leave them blank
         tableView.tableFooterView = UIView(frame: .zero)
@@ -35,14 +55,16 @@ class MovieTableViewController: UIViewController {
         navigationItem.title = "Movie Library"
     }
     
-    private func fetchMovies() {
+    @objc private func fetchMovies() {
         activityIndicator.startAnimating()
         WebServiceManager.shared.fetchMovies { [weak self] (movies, err) in
             
+            self?.movieViewModels.removeAll()
             guard let weakSelf = self else { return }
             
             if let err = err {
                 print("Failed to fetch movie data:", err)
+                weakSelf.tableView.refreshControl?.endRefreshing()
                 return
             }
             
@@ -53,7 +75,8 @@ class MovieTableViewController: UIViewController {
                     weakSelf.activityIndicator.stopAnimating()
                     weakSelf.totalCount = movies.count
                     weakSelf.movieViewModels.append(contentsOf: movies.map({ return MovieViewModel(movie: $0)}))
-                    self?.tableView.reloadData()
+                    weakSelf.tableView.refreshControl?.endRefreshing()
+                    weakSelf.tableView.reloadData()
                 }
             }
         }
