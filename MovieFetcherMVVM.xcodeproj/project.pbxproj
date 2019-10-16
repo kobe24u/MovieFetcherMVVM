@@ -20,6 +20,7 @@
 		BF68F14F235724EB00999C41 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14E235724EB00999C41 /* Extensions.swift */; };
 		BF68F15323572B6C00999C41 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15123572B6C00999C41 /* Alamofire.framework */; };
 		BF68F15423572B6C00999C41 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15223572B6C00999C41 /* SwiftyJSON.framework */; };
+		BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F15823573C4B00999C41 /* DataLoadOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		BF68F14E235724EB00999C41 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BF68F15123572B6C00999C41 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		BF68F15223572B6C00999C41 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		BF68F15823573C4B00999C41 /* DataLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +59,6 @@
 			isa = PBXGroup;
 			children = (
 				BF68F128235717D900999C41 /* MovieFetcherMVVM */,
-				BF68F127235717D900999C41 /* Products */,
 				BF68F15023572B6C00999C41 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +69,7 @@
 				BF68F126235717D900999C41 /* MovieFetcherMVVM.app */,
 			);
 			name = Products;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		BF68F128235717D900999C41 /* MovieFetcherMVVM */ = {
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				BF68F13B235719C300999C41 /* MovieTableViewController.swift */,
+				BF68F127235717D900999C41 /* Products */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 				BF68F1482357215600999C41 /* WebServiceManager.swift */,
 				BF68F14A2357218400999C41 /* Reachability.swift */,
 				BF68F14E235724EB00999C41 /* Extensions.swift */,
+				BF68F15823573C4B00999C41 /* DataLoadOperation.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -240,6 +244,7 @@
 				BF68F12A235717D900999C41 /* AppDelegate.swift in Sources */,
 				BF68F14323571DDF00999C41 /* Movie.swift in Sources */,
 				BF68F14023571A8000999C41 /* MovieCell.swift in Sources */,
+				BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

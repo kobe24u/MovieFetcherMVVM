@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//here we use NSCache to store image data to memory to avoid duplicate downloading
 fileprivate let imageCache = NSCache<NSString, UIImage>()
 
 extension UIImageView {

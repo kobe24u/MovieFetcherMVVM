@@ -42,12 +42,17 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XBv-Aa-MDU">
+                                                    <rect key="frame" x="56" y="48" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wY4-Hr-dSv" firstAttribute="bottom" secondItem="HbG-32-USW" secondAttribute="bottom" id="1Dq-9y-Ej9"/>
                                                 <constraint firstItem="HbG-32-USW" firstAttribute="top" secondItem="7VV-OP-XGW" secondAttribute="top" constant="8" id="Ejj-p4-6iF"/>
                                                 <constraint firstItem="HbG-32-USW" firstAttribute="leading" secondItem="7VV-OP-XGW" secondAttribute="leading" constant="16" id="KWf-P0-laN"/>
+                                                <constraint firstItem="XBv-Aa-MDU" firstAttribute="centerY" secondItem="HbG-32-USW" secondAttribute="centerY" id="TW7-6P-m48"/>
                                                 <constraint firstItem="wY4-Hr-dSv" firstAttribute="leading" secondItem="HbG-32-USW" secondAttribute="trailing" constant="8" id="cdb-Uz-dsr"/>
+                                                <constraint firstItem="XBv-Aa-MDU" firstAttribute="centerX" secondItem="HbG-32-USW" secondAttribute="centerX" id="kkd-Ez-x4r"/>
                                                 <constraint firstAttribute="trailing" secondItem="wY4-Hr-dSv" secondAttribute="trailing" constant="8" id="t7v-Fj-CNI"/>
                                                 <constraint firstItem="wY4-Hr-dSv" firstAttribute="top" secondItem="HbG-32-USW" secondAttribute="top" id="v6z-Mc-G17"/>
                                                 <constraint firstAttribute="bottom" secondItem="HbG-32-USW" secondAttribute="bottom" constant="8" id="vzK-FO-zb7"/>
@@ -55,6 +60,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="coverImageView" destination="HbG-32-USW" id="8mX-ur-rKu"/>
+                                            <outlet property="loadingSpinner" destination="XBv-Aa-MDU" id="Jjz-SC-Soe"/>
                                             <outlet property="titleLabel" destination="wY4-Hr-dSv" id="7zi-gV-4h4"/>
                                         </connections>
                                     </tableViewCell>
