@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieCell: UITableViewCell {
-    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
@@ -18,5 +18,15 @@ class MovieCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func configure(with movieViewModel: MovieViewModel?) {
+        guard let movieViewModel = movieViewModel else { return }
+        titleLabel?.text = movieViewModel.title
+        if let coverImageUrl = movieViewModel.imageHref {
+            coverImageView.loadImage(urlString:coverImageUrl)
+        } else {
+            coverImageView.showUnavailableImage()
+        }
     }
 }

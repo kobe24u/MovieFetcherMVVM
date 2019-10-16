@@ -54,7 +54,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="posterImageView" destination="HbG-32-USW" id="1eU-KJ-83L"/>
+                                            <outlet property="coverImageView" destination="HbG-32-USW" id="8mX-ur-rKu"/>
                                             <outlet property="titleLabel" destination="wY4-Hr-dSv" id="7zi-gV-4h4"/>
                                         </connections>
                                     </tableViewCell>

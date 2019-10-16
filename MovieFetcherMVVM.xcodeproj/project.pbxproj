@@ -13,6 +13,13 @@
 		BF68F134235717DA00999C41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF68F132235717DA00999C41 /* LaunchScreen.storyboard */; };
 		BF68F13C235719C300999C41 /* MovieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F13B235719C300999C41 /* MovieTableViewController.swift */; };
 		BF68F14023571A8000999C41 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F13F23571A8000999C41 /* MovieCell.swift */; };
+		BF68F14323571DDF00999C41 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14223571DDF00999C41 /* Movie.swift */; };
+		BF68F14623571E1B00999C41 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14523571E1B00999C41 /* MovieViewModel.swift */; };
+		BF68F1492357215600999C41 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F1482357215600999C41 /* WebServiceManager.swift */; };
+		BF68F14B2357218400999C41 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14A2357218400999C41 /* Reachability.swift */; };
+		BF68F14F235724EB00999C41 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14E235724EB00999C41 /* Extensions.swift */; };
+		BF68F15323572B6C00999C41 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15123572B6C00999C41 /* Alamofire.framework */; };
+		BF68F15423572B6C00999C41 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15223572B6C00999C41 /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		BF68F135235717DA00999C41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF68F13B235719C300999C41 /* MovieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewController.swift; sourceTree = "<group>"; };
 		BF68F13F23571A8000999C41 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		BF68F14223571DDF00999C41 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		BF68F14523571E1B00999C41 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
+		BF68F1482357215600999C41 /* WebServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
+		BF68F14A2357218400999C41 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		BF68F14E235724EB00999C41 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BF68F15123572B6C00999C41 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		BF68F15223572B6C00999C41 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF68F15323572B6C00999C41 /* Alamofire.framework in Frameworks */,
+				BF68F15423572B6C00999C41 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +58,7 @@
 			children = (
 				BF68F128235717D900999C41 /* MovieFetcherMVVM */,
 				BF68F127235717D900999C41 /* Products */,
+				BF68F15023572B6C00999C41 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,11 +73,14 @@
 		BF68F128235717D900999C41 /* MovieFetcherMVVM */ = {
 			isa = PBXGroup;
 			children = (
+				BF68F1472357214300999C41 /* Service */,
+				BF68F14423571E0A00999C41 /* ViewModel */,
 				BF68F129235717D900999C41 /* AppDelegate.swift */,
 				BF68F12D235717D900999C41 /* Main.storyboard */,
 				BF68F130235717DA00999C41 /* Assets.xcassets */,
 				BF68F132235717DA00999C41 /* LaunchScreen.storyboard */,
 				BF68F135235717DA00999C41 /* Info.plist */,
+				BF68F14123571DCA00999C41 /* Model */,
 				BF68F13E23571A5900999C41 /* View */,
 				BF68F13D235719F500999C41 /* Controller */,
 			);
@@ -83,6 +103,41 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BF68F14123571DCA00999C41 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BF68F14223571DDF00999C41 /* Movie.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BF68F14423571E0A00999C41 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BF68F14523571E1B00999C41 /* MovieViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BF68F1472357214300999C41 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				BF68F1482357215600999C41 /* WebServiceManager.swift */,
+				BF68F14A2357218400999C41 /* Reachability.swift */,
+				BF68F14E235724EB00999C41 /* Extensions.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		BF68F15023572B6C00999C41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF68F15123572B6C00999C41 /* Alamofire.framework */,
+				BF68F15223572B6C00999C41 /* SwiftyJSON.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -93,6 +148,7 @@
 				BF68F122235717D900999C41 /* Sources */,
 				BF68F123235717D900999C41 /* Frameworks */,
 				BF68F124235717D900999C41 /* Resources */,
+				BF68F15523572B7300999C41 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -149,13 +205,40 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BF68F15523572B7300999C41 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BF68F122235717D900999C41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF68F14B2357218400999C41 /* Reachability.swift in Sources */,
+				BF68F14F235724EB00999C41 /* Extensions.swift in Sources */,
 				BF68F13C235719C300999C41 /* MovieTableViewController.swift in Sources */,
+				BF68F14623571E1B00999C41 /* MovieViewModel.swift in Sources */,
+				BF68F1492357215600999C41 /* WebServiceManager.swift in Sources */,
 				BF68F12A235717D900999C41 /* AppDelegate.swift in Sources */,
+				BF68F14323571DDF00999C41 /* Movie.swift in Sources */,
 				BF68F14023571A8000999C41 /* MovieCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +387,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MovieFetcherMVVM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -322,6 +409,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MovieFetcherMVVM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
