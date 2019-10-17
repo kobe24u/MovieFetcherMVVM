@@ -134,8 +134,8 @@ extension MovieTableViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as? MovieCell
         if let imageVC  = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController{
             let downloadedImage = cell?.coverImageView.image
-            imageVC.movieViewModelController = self.movieViewModelController
-            imageVC.selectedIndex = indexPath.row
+            let selectedMovieViewModel = movieViewModelController.movieViewModels[indexPath.row]
+            imageVC.selectedMovieViewModel = selectedMovieViewModel
             imageVC.downloadedImage = downloadedImage
             self.navigationController?.pushViewController(imageVC, animated: true)
         }
@@ -151,13 +151,11 @@ extension MovieTableViewController{
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:  #selector(fetchMovies), for: .valueChanged)
             
-            // Green color
-            let greenColor = UIColor(red: 10/255, green: 190/255, blue: 50/255, alpha: 1.0)
             var attributes = [NSAttributedString.Key: AnyObject]()
-            attributes[.foregroundColor] = greenColor
+            attributes[.foregroundColor] = UIColor.black
             //we will show the user a prompt message, when he pulls and release, the table view will refresh itself
             let attributedString = NSAttributedString(string: "Pull and release to refresh...", attributes: attributes)
-            refreshControl.tintColor = greenColor
+            refreshControl.tintColor = UIColor.black
             refreshControl.attributedTitle = attributedString
             self.tableView.refreshControl = refreshControl
         }
@@ -168,6 +166,9 @@ extension MovieTableViewController{
         tableView.tableFooterView = UIView(frame: .zero)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Movie Library"
+        self.navigationController?.navigationBar.barTintColor   = UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0) // a lovely red
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.black
     }
     
     func showError(_ title: String, message: String) {

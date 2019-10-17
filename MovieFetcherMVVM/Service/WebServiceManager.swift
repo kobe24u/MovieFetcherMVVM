@@ -23,7 +23,7 @@ class WebServiceManager: NSObject {
                 let json = JSON(value)
                 json["movies"].array?.forEach({ (movie) in
                     //here we should be careful, if the movie's cover image data or rating data is null, we should show something instead of leave it empty for better user experience
-                    let newMovieObj = Movie(title: movie["title"].stringValue, imageHref: movie["imageHref"].string ?? "https://1080motion.com/wp-content/uploads/2018/06/NoImageFound.jpg.png", rating: movie["rating"].double ?? 0.0, releaseDate: movie["title"].stringValue)
+                    let newMovieObj = Movie(title: movie["title"].stringValue, imageHref: movie["imageHref"].string ?? "https://1080motion.com/wp-content/uploads/2018/06/NoImageFound.jpg.png", rating: movie["rating"].double ?? 0.0, releaseDate: movie["releaseDate"].stringValue)
                     movies.append(newMovieObj)
                 })
                 //when the for loop is done, we will finish the data fetching process and jump out to the next step

@@ -9,7 +9,7 @@
 import Foundation
 
 class MovieViewModelController {
-    fileprivate var movieViewModels: [MovieViewModel?] = []
+    var movieViewModels: [MovieViewModel?] = []
     
     public var numberOfMovie: Int {
         return movieViewModels.count
