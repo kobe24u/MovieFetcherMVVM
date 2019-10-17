@@ -1,4 +1,4 @@
 github "SwiftyJSON/SwiftyJSON" ~> 4.0
 github "Alamofire/Alamofire" "5.0.0-rc.2"
-
+github "evgenyneu/Cosmos" ~> 20.0
 
