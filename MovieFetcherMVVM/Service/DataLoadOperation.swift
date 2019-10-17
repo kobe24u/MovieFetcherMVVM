@@ -16,15 +16,15 @@ fileprivate let imageCache = NSCache<NSString, UIImage>()
 class DataLoadOperation: Operation {
     var image: UIImage?
     var loadingCompleteHandler: ((UIImage?) -> ())?
-    private var movieViewModel: MovieViewModel
+    private var movie: Movie
     
-    init(movieViewModel: MovieViewModel) {
-        self.movieViewModel = movieViewModel
+    init(movie: Movie) {
+        self.movie = movie
     }
     
     override func main() {
         if isCancelled { return }
-        guard let url = movieViewModel.imageHref else { return }
+        let url = movie.imageHref
         downloadImageFrom(url) { (image) in
             DispatchQueue.main.async() { [weak self] in
                 guard let `self` = self else { return }

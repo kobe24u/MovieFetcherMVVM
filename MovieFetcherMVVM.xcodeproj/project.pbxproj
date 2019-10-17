@@ -19,7 +19,6 @@
 		BF68F15323572B6C00999C41 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15123572B6C00999C41 /* Alamofire.framework */; };
 		BF68F15423572B6C00999C41 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15223572B6C00999C41 /* SwiftyJSON.framework */; };
 		BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F15823573C4B00999C41 /* DataLoadOperation.swift */; };
-		BF978DDC2357E4E200ED3E32 /* MovieViewModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF978DDB2357E4E200ED3E32 /* MovieViewModelController.swift */; };
 		BF978DE02357FAB600ED3E32 /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF978DDF2357FAB600ED3E32 /* Cosmos.framework */; };
 		BF978DE22357FE1600ED3E32 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF978DE12357FE1600ED3E32 /* MovieDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +38,6 @@
 		BF68F15123572B6C00999C41 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		BF68F15223572B6C00999C41 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		BF68F15823573C4B00999C41 /* DataLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadOperation.swift; sourceTree = "<group>"; };
-		BF978DDB2357E4E200ED3E32 /* MovieViewModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModelController.swift; sourceTree = "<group>"; };
 		BF978DDF2357FAB600ED3E32 /* Cosmos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cosmos.framework; path = Carthage/Build/iOS/Cosmos.framework; sourceTree = "<group>"; };
 		BF978DE12357FE1600ED3E32 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,12 +70,15 @@
 				BF68F126235717D900999C41 /* MovieFetcherMVVM.app */,
 			);
 			name = Products;
-			path = ../..;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		BF68F128235717D900999C41 /* MovieFetcherMVVM */ = {
 			isa = PBXGroup;
 			children = (
+				BF68F13D235719F500999C41 /* Controller */,
+				BF68F13E23571A5900999C41 /* View */,
+				BF68F14123571DCA00999C41 /* Model */,
 				BF68F1472357214300999C41 /* Service */,
 				BF68F14423571E0A00999C41 /* ViewModel */,
 				BF68F129235717D900999C41 /* AppDelegate.swift */,
@@ -85,9 +86,7 @@
 				BF68F130235717DA00999C41 /* Assets.xcassets */,
 				BF68F132235717DA00999C41 /* LaunchScreen.storyboard */,
 				BF68F135235717DA00999C41 /* Info.plist */,
-				BF68F14123571DCA00999C41 /* Model */,
-				BF68F13E23571A5900999C41 /* View */,
-				BF68F13D235719F500999C41 /* Controller */,
+				BF68F127235717D900999C41 /* Products */,
 			);
 			path = MovieFetcherMVVM;
 			sourceTree = "<group>";
@@ -96,9 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				BF68F13B235719C300999C41 /* MovieTableViewController.swift */,
-				BF978DDB2357E4E200ED3E32 /* MovieViewModelController.swift */,
 				BF978DE12357FE1600ED3E32 /* MovieDetailViewController.swift */,
-				BF68F127235717D900999C41 /* Products */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -246,7 +243,6 @@
 				BF68F1492357215600999C41 /* WebServiceManager.swift in Sources */,
 				BF68F12A235717D900999C41 /* AppDelegate.swift in Sources */,
 				BF68F14323571DDF00999C41 /* Movie.swift in Sources */,
-				BF978DDC2357E4E200ED3E32 /* MovieViewModelController.swift in Sources */,
 				BF68F14023571A8000999C41 /* MovieCell.swift in Sources */,
 				BF978DE22357FE1600ED3E32 /* MovieDetailViewController.swift in Sources */,
 				BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */,

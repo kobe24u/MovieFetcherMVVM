@@ -8,18 +8,47 @@
 
 import UIKit
 
-struct MovieViewModel {
+class MovieViewModel {
     
-    let title: String?
-    let releaseDate: String?
-    let rating: Double?
-    let imageHref: String?
+    var movies: [Movie?] = []
     
-    // Dependency Injection
-    init(movie: Movie) {
-        releaseDate = movie.releaseDate
-        title = movie.title
-        rating = movie.rating
-        imageHref = movie.imageHref
+    public var numberOfMovie: Int {
+        return movies.count
+    }
+    
+    //this method is used to download every single movie object's image data
+    public func loadImage(at index: Int) -> DataLoadOperation? {
+        if (0..<movies.count).contains(index) {
+            return DataLoadOperation(movie: movies[index]!)
+        }
+        return .none
+    }
+    
+    public func getMovieTitle(at index: Int) -> String{
+        var title = ""
+        if (0..<movies.count).contains(index) {
+            title =  movies[index]!.title
+        }
+        return title
+    }
+    
+    //here we will take advantage of WebServiceManager and make an API call to fetch the movie data
+    //here we use completion handler, so no further action will be done until it's completed
+    func retrieveMovies(_ completionBlock: @escaping (_ success: Bool, _ error: Error?) -> ()) {
+        
+        WebServiceManager.shared.fetchMovies { (movies, err) in
+
+            if let err = err {
+                print("Failed to fetch movie data:", err)
+                completionBlock(false, err)
+                return
+            }
+
+            self.movies.removeAll()
+            print("there are \(String(describing: movies?.count)) movie objects fetched")
+            //we will transform the array of Movie objects to an array of MovieViewModel objects
+            self.movies = movies ?? []
+            completionBlock(true, nil)
+        }
     }
 }

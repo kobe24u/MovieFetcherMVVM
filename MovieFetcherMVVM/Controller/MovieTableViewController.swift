@@ -17,7 +17,7 @@ class MovieTableViewController: UIViewController {
     private lazy var loadingOperations = [IndexPath : DataLoadOperation]()
     
     //here we use MovieViewModel as the bridge for communication, Controller won't talk to raw custom object any more
-    var movieViewModelController = MovieViewModelController()
+    var movieViewModel = MovieViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class MovieTableViewController: UIViewController {
     
     @objc private func fetchMovies() {
         //activityIndicator.startAnimating()
-        self.movieViewModelController.retrieveMovies { (success, error) in
+        self.movieViewModel.retrieveMovies { (success, error) in
             if !success {
                 DispatchQueue.main.async {
                     let title = "Error"
@@ -56,7 +56,7 @@ extension MovieTableViewController: UITableViewDataSourcePrefetching {
         for indexPath in indexPaths {
             if let _ = loadingOperations[indexPath] { return }
             //we will check if the row is visible, if yes, we will prefetch the load and get ready
-            if let dataLoader = movieViewModelController.loadImage(at: indexPath.row) {
+            if let dataLoader = movieViewModel.loadImage(at: indexPath.row) {
                 loadingQueue.addOperation(dataLoader)
                 loadingOperations[indexPath] = dataLoader
             }
@@ -75,14 +75,14 @@ extension MovieTableViewController: UITableViewDataSourcePrefetching {
 
 extension MovieTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movieViewModelController.numberOfMovie
+        return movieViewModel.numberOfMovie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         //we will leave the image downloading process to other delegate methods
         cell.updateAppearanceFor(.none)
-        let movieTitle = movieViewModelController.getMovieTitle(at: indexPath.row)
+        let movieTitle = movieViewModel.getMovieTitle(at: indexPath.row)
         cell.displayTitle(title: movieTitle)
         return cell
     }
@@ -112,7 +112,7 @@ extension MovieTableViewController: UITableViewDelegate {
                 dataLoader.loadingCompleteHandler = updateCellClosure
             }
         } else {
-            if let dataLoader = movieViewModelController.loadImage(at: indexPath.row) {
+            if let dataLoader = movieViewModel.loadImage(at: indexPath.row) {
                 // Provide the completion closure, and kick off the loading operation
                 dataLoader.loadingCompleteHandler = updateCellClosure
                 loadingQueue.addOperation(dataLoader)
@@ -135,8 +135,9 @@ extension MovieTableViewController: UITableViewDelegate {
         if let imageVC  = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController{
             if let downloadedImage = cell?.coverImageView.image {
                 //only allow navigation when the image download process is done, coz the next page does not do any HTTP request, it will show nothing there, which is not good
-                let selectedMovieViewModel = movieViewModelController.movieViewModels[indexPath.row]
-                imageVC.selectedMovieViewModel = selectedMovieViewModel
+                let selectedIndex = indexPath.row
+                imageVC.movieViewModel = movieViewModel
+                imageVC.selectedIndex = selectedIndex
                 imageVC.downloadedImage = downloadedImage
                 self.navigationController?.pushViewController(imageVC, animated: true)
             }

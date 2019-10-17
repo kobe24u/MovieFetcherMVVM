@@ -16,24 +16,28 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var starRatingView: CosmosView!
     @IBOutlet weak var releaseDate: UILabel!
     
-    var selectedMovieViewModel: MovieViewModel?
+    var movieViewModel: MovieViewModel?
+    var selectedIndex: Int!
     var downloadedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async {
-            self.coverImageView.image = self.downloadedImage
-            self.movieTitle.text = self.selectedMovieViewModel?.title
-            self.releaseDate.text = self.selectedMovieViewModel?.releaseDate
-            let movieRating = self.selectedMovieViewModel?.rating ?? Double(0)
-            if movieRating == Double(0){
-                self.starRatingView.text = "no rating"
-            }else{
-                self.starRatingView.rating = movieRating
-                self.starRatingView.text = "\(movieRating)/10"
+        navigationItem.title = "Movie Details"
+        
+        if let selectedImage = movieViewModel?.movies[selectedIndex] {
+            DispatchQueue.main.async {
+                self.coverImageView.image = self.downloadedImage
+                self.movieTitle.text = selectedImage.title
+                self.releaseDate.text = selectedImage.releaseDate
+                let movieRating = selectedImage.rating
+                if movieRating == Double(0){
+                    self.starRatingView.text = "no rating"
+                }else{
+                    self.starRatingView.rating = movieRating
+                    self.starRatingView.text = "\(movieRating)/10"
+                }
             }
         }
-        navigationItem.title = "Movie Details"
     }
 
 }
