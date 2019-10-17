@@ -133,11 +133,13 @@ extension MovieTableViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         let cell = tableView.cellForRow(at: indexPath) as? MovieCell
         if let imageVC  = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController{
-            let downloadedImage = cell?.coverImageView.image
-            let selectedMovieViewModel = movieViewModelController.movieViewModels[indexPath.row]
-            imageVC.selectedMovieViewModel = selectedMovieViewModel
-            imageVC.downloadedImage = downloadedImage
-            self.navigationController?.pushViewController(imageVC, animated: true)
+            if let downloadedImage = cell?.coverImageView.image {
+                //only allow navigation when the image download process is done, coz the next page does not do any HTTP request, it will show nothing there, which is not good
+                let selectedMovieViewModel = movieViewModelController.movieViewModels[indexPath.row]
+                imageVC.selectedMovieViewModel = selectedMovieViewModel
+                imageVC.downloadedImage = downloadedImage
+                self.navigationController?.pushViewController(imageVC, animated: true)
+            }
         }
     }
 }
@@ -164,7 +166,10 @@ extension MovieTableViewController{
     func setupBasicUI(){
         //hide the empty rows, leave them blank
         tableView.tableFooterView = UIView(frame: .zero)
-        navigationController?.navigationBar.prefersLargeTitles = true
+        //the prefer large nav bar title setting is only supported by ios 11.0 abovesa
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
         navigationItem.title = "Movie Library"
         self.navigationController?.navigationBar.barTintColor   = UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0) // a lovely red
         

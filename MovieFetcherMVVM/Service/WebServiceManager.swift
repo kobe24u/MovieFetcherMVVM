@@ -13,7 +13,7 @@ class WebServiceManager: NSObject {
     static let shared = WebServiceManager()
     
     func fetchMovies(completion: @escaping ([Movie]?, Error?) -> ()) {
-        let urlString = "http://www.json-generator.com/api/json/get/bTvkjgdfhe?indent=2"
+        let urlString = "https://www.dropbox.com/s/q1ins5dsldsojzt/movies.json?dl=1"
         var movies = [Movie]()
         //here we take advantage of Alamofire to make an API call to fetch the JSON reponse
         AF.request(urlString).responseJSON { (response) in
