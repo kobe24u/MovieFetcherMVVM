@@ -16,11 +16,10 @@
 		BF68F14323571DDF00999C41 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14223571DDF00999C41 /* Movie.swift */; };
 		BF68F14623571E1B00999C41 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14523571E1B00999C41 /* MovieViewModel.swift */; };
 		BF68F1492357215600999C41 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F1482357215600999C41 /* WebServiceManager.swift */; };
-		BF68F14B2357218400999C41 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14A2357218400999C41 /* Reachability.swift */; };
-		BF68F14F235724EB00999C41 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F14E235724EB00999C41 /* Extensions.swift */; };
 		BF68F15323572B6C00999C41 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15123572B6C00999C41 /* Alamofire.framework */; };
 		BF68F15423572B6C00999C41 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15223572B6C00999C41 /* SwiftyJSON.framework */; };
 		BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F15823573C4B00999C41 /* DataLoadOperation.swift */; };
+		BF978DDC2357E4E200ED3E32 /* MovieViewModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF978DDB2357E4E200ED3E32 /* MovieViewModelController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,11 +34,10 @@
 		BF68F14223571DDF00999C41 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		BF68F14523571E1B00999C41 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		BF68F1482357215600999C41 /* WebServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
-		BF68F14A2357218400999C41 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		BF68F14E235724EB00999C41 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BF68F15123572B6C00999C41 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		BF68F15223572B6C00999C41 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		BF68F15823573C4B00999C41 /* DataLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadOperation.swift; sourceTree = "<group>"; };
+		BF978DDB2357E4E200ED3E32 /* MovieViewModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModelController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				BF68F13B235719C300999C41 /* MovieTableViewController.swift */,
+				BF978DDB2357E4E200ED3E32 /* MovieViewModelController.swift */,
 				BF68F127235717D900999C41 /* Products */,
 			);
 			path = Controller;
@@ -126,8 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				BF68F1482357215600999C41 /* WebServiceManager.swift */,
-				BF68F14A2357218400999C41 /* Reachability.swift */,
-				BF68F14E235724EB00999C41 /* Extensions.swift */,
 				BF68F15823573C4B00999C41 /* DataLoadOperation.swift */,
 			);
 			path = Service;
@@ -236,13 +233,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF68F14B2357218400999C41 /* Reachability.swift in Sources */,
-				BF68F14F235724EB00999C41 /* Extensions.swift in Sources */,
 				BF68F13C235719C300999C41 /* MovieTableViewController.swift in Sources */,
 				BF68F14623571E1B00999C41 /* MovieViewModel.swift in Sources */,
 				BF68F1492357215600999C41 /* WebServiceManager.swift in Sources */,
 				BF68F12A235717D900999C41 /* AppDelegate.swift in Sources */,
 				BF68F14323571DDF00999C41 /* Movie.swift in Sources */,
+				BF978DDC2357E4E200ED3E32 /* MovieViewModelController.swift in Sources */,
 				BF68F14023571A8000999C41 /* MovieCell.swift in Sources */,
 				BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */,
 			);

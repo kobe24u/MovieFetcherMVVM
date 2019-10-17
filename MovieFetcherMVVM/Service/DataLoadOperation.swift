@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+//here we use NSCache to store image data to memory to avoid duplicate downloading
+fileprivate let imageCache = NSCache<NSString, UIImage>()
+
 //this helper class is used to load image
 class DataLoadOperation: Operation {
     var image: UIImage?
@@ -22,7 +25,7 @@ class DataLoadOperation: Operation {
     override func main() {
         if isCancelled { return }
         guard let url = movieViewModel.imageHref else { return }
-        downloadImageFrom(URL(string: url)!) { (image) in
+        downloadImageFrom(url) { (image) in
             DispatchQueue.main.async() { [weak self] in
                 guard let `self` = self else { return }
                 if self.isCancelled { return }
@@ -33,14 +36,22 @@ class DataLoadOperation: Operation {
     }
 }
 
-func downloadImageFrom(_ url: URL, completeHandler: @escaping (UIImage?) -> ()) {
-    URLSession.shared.dataTask(with: url) { data, response, error in
-        guard
-            let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-            let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-            let data = data, error == nil,
-            let _image = UIImage(data: data)
-            else { return }
-        completeHandler(_image)
-        }.resume()
+//this method is used to check if we've downloaded the image before using NSCache to save data transmission cost
+func downloadImageFrom(_ urlString: String, completeHandler: @escaping (UIImage?) -> ()) {
+    if let imageFromCache = imageCache.object(forKey: urlString as NSString) {
+       completeHandler(imageFromCache)
+    }else{
+        if let url = URL(string: urlString as String) {
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    if let image = UIImage(data: data) {
+                        imageCache.setObject(image, forKey: urlString as NSString)
+                        DispatchQueue.main.async {
+                            completeHandler(image)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

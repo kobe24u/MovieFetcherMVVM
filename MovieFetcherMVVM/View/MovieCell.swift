@@ -18,14 +18,24 @@ class MovieCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        //this is used to avoid image override when scrolling
+        self.coverImageView.image = nil
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    func updateAppearanceFor(_ image: UIImage?, movieViewModel: MovieViewModel) {
+    func updateAppearanceFor(_ image: UIImage?) {
         DispatchQueue.main.async { [unowned self] in
             self.displayImage(image)
-            self.titleLabel.text = movieViewModel.title
+        }
+    }
+    
+    func displayTitle(title: String){
+        DispatchQueue.main.async {
+            self.titleLabel.text = title
         }
     }
     
