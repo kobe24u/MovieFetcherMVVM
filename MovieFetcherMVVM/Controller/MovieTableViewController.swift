@@ -7,23 +7,22 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MovieTableViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
-    //these two lazy queue object will be used to prefetch image data for smooth scrolling without UI block
-    private lazy var loadingQueue = OperationQueue()
-    private lazy var loadingOperations = [IndexPath : DataLoadOperation]()
     
     //here we use MovieViewModel as the bridge for communication, Controller won't talk to raw custom object any more
     var movieViewModel = MovieViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.prefetchDataSource = self
         setupBasicUI()
         fetchMovies()
+        tableView.estimatedRowHeight = 200
+        
+        tableView.rowHeight = UITableView.automaticDimension
         customizeRefreshController()
     }
     
@@ -49,31 +48,7 @@ class MovieTableViewController: UIViewController {
     }
 }
 
-//added Prefetch delegate methods for smooth scrolling with lazy loading
-extension MovieTableViewController: UITableViewDataSourcePrefetching {
-    
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            if let _ = loadingOperations[indexPath] { return }
-            //we will check if the row is visible, if yes, we will prefetch the load and get ready
-            if let dataLoader = movieViewModel.loadImage(at: indexPath.row) {
-                loadingQueue.addOperation(dataLoader)
-                loadingOperations[indexPath] = dataLoader
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            if let dataLoader = loadingOperations[indexPath] {
-                dataLoader.cancel()
-                loadingOperations.removeValue(forKey: indexPath)
-            }
-        }
-    }
-}
-
-extension MovieTableViewController: UITableViewDataSource {
+extension MovieTableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movieViewModel.numberOfMovie
     }
@@ -81,66 +56,29 @@ extension MovieTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         //we will leave the image downloading process to other delegate methods
-        cell.updateAppearanceFor(.none)
-        let movieTitle = movieViewModel.getMovieTitle(at: indexPath.row)
+        let movieImageURL = movieViewModel.getMovie(at: indexPath.row).imageHref
+        let movieTitle = movieViewModel.getMovie(at: indexPath.row).title
+        cell.coverImageView.sd_setImage(with: URL(string: movieImageURL)) { (image, error, cache, urls) in
+            if (error != nil) {
+                //Failure code here
+                cell.coverImageView.image = UIImage(named: "NoImageFound")
+            } else {
+                //Success code here
+                cell.coverImageView.image = image
+            }
+        }
         cell.displayTitle(title: movieTitle)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
-    }
-}
-
-// MARK:- TableView Delegate
-extension MovieTableViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? MovieCell else { return }
-        // this operation will update the cell once the data has been loaded?
-        let updateCellClosure: (UIImage?) -> () = { [unowned self] (image) in
-            cell.updateAppearanceFor(image)
-            self.loadingOperations.removeValue(forKey: indexPath)
-        }
-        
-        if let dataLoader = loadingOperations[indexPath] {
-            // If the data has been loaded we will update it
-            if let image = dataLoader.image {
-                cell.updateAppearanceFor(image)
-                loadingOperations.removeValue(forKey: indexPath)
-            } else {
-                // No data loaded yet, so add the completion closure to update the cell once the data arrives
-                dataLoader.loadingCompleteHandler = updateCellClosure
-            }
-        } else {
-            if let dataLoader = movieViewModel.loadImage(at: indexPath.row) {
-                // Provide the completion closure, and kick off the loading operation
-                dataLoader.loadingCompleteHandler = updateCellClosure
-                loadingQueue.addOperation(dataLoader)
-                loadingOperations[indexPath] = dataLoader
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // If there's a data loader for this index path we don't need it any more. Cancel and dispose
-        if let dataLoader = loadingOperations[indexPath] {
-            dataLoader.cancel()
-            loadingOperations.removeValue(forKey: indexPath)
-        }
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let cell = tableView.cellForRow(at: indexPath) as? MovieCell
         if let imageVC  = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController{
-            if let downloadedImage = cell?.coverImageView.image {
-                //only allow navigation when the image download process is done, coz the next page does not do any HTTP request, it will show nothing there, which is not good
-                let selectedIndex = indexPath.row
-                imageVC.movieViewModel = movieViewModel
-                imageVC.selectedIndex = selectedIndex
-                imageVC.downloadedImage = downloadedImage
-                self.navigationController?.pushViewController(imageVC, animated: true)
-            }
+            let selectedIndex = indexPath.row
+            imageVC.movieViewModel = movieViewModel
+            imageVC.selectedIndex = selectedIndex
+            self.navigationController?.pushViewController(imageVC, animated: true)
         }
     }
 }

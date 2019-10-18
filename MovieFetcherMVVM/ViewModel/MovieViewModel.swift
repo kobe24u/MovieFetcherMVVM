@@ -16,20 +16,12 @@ class MovieViewModel {
         return movies.count
     }
     
-    //this method is used to download every single movie object's image data
-    public func loadImage(at index: Int) -> DataLoadOperation? {
+    public func getMovie(at index: Int) -> Movie{
+        var movie = Movie(title: "sample title", imageHref: "https://1080motion.com/wp-content/uploads/2018/06/NoImageFound.jpg.png", rating: Double(0), releaseDate: "")
         if (0..<movies.count).contains(index) {
-            return DataLoadOperation(movie: movies[index]!)
+            movie =  movies[index]!
         }
-        return .none
-    }
-    
-    public func getMovieTitle(at index: Int) -> String{
-        var title = ""
-        if (0..<movies.count).contains(index) {
-            title =  movies[index]!.title
-        }
-        return title
+        return movie
     }
     
     //here we will take advantage of WebServiceManager and make an API call to fetch the movie data

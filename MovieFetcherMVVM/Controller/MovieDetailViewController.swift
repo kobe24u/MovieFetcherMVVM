@@ -18,15 +18,22 @@ class MovieDetailViewController: UIViewController {
     
     var movieViewModel: MovieViewModel?
     var selectedIndex: Int!
-    var downloadedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Movie Details"
         
-        if let selectedImage = movieViewModel?.movies[selectedIndex] {
+        if let selectedImage = movieViewModel?.getMovie(at: selectedIndex) {
             DispatchQueue.main.async {
-                self.coverImageView.image = self.downloadedImage
+                self.coverImageView.sd_setImage(with: URL(string: selectedImage.imageHref)) { (image, error, cache, urls) in
+                    if (error != nil) {
+                        //Failure code here
+                        self.coverImageView.image = UIImage(named: "NoImageFound")
+                    } else {
+                        //Success code here
+                        self.coverImageView.image = image
+                    }
+                }
                 self.movieTitle.text = selectedImage.title
                 self.releaseDate.text = selectedImage.releaseDate
                 let movieRating = selectedImage.rating

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9A680AF2359860100294C15 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A680AE2359860100294C15 /* SDWebImage.framework */; };
 		BF68F12A235717D900999C41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F129235717D900999C41 /* AppDelegate.swift */; };
 		BF68F12F235717D900999C41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF68F12D235717D900999C41 /* Main.storyboard */; };
 		BF68F131235717DA00999C41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF68F130235717DA00999C41 /* Assets.xcassets */; };
@@ -18,12 +19,12 @@
 		BF68F1492357215600999C41 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F1482357215600999C41 /* WebServiceManager.swift */; };
 		BF68F15323572B6C00999C41 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15123572B6C00999C41 /* Alamofire.framework */; };
 		BF68F15423572B6C00999C41 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F15223572B6C00999C41 /* SwiftyJSON.framework */; };
-		BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68F15823573C4B00999C41 /* DataLoadOperation.swift */; };
 		BF978DE02357FAB600ED3E32 /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF978DDF2357FAB600ED3E32 /* Cosmos.framework */; };
 		BF978DE22357FE1600ED3E32 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF978DE12357FE1600ED3E32 /* MovieDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A9A680AE2359860100294C15 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
 		BF68F126235717D900999C41 /* MovieFetcherMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieFetcherMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF68F129235717D900999C41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF68F12E235717D900999C41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -37,7 +38,6 @@
 		BF68F1482357215600999C41 /* WebServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
 		BF68F15123572B6C00999C41 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		BF68F15223572B6C00999C41 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		BF68F15823573C4B00999C41 /* DataLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadOperation.swift; sourceTree = "<group>"; };
 		BF978DDF2357FAB600ED3E32 /* Cosmos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cosmos.framework; path = Carthage/Build/iOS/Cosmos.framework; sourceTree = "<group>"; };
 		BF978DE12357FE1600ED3E32 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,6 +49,7 @@
 			files = (
 				BF68F15323572B6C00999C41 /* Alamofire.framework in Frameworks */,
 				BF68F15423572B6C00999C41 /* SwiftyJSON.framework in Frameworks */,
+				A9A680AF2359860100294C15 /* SDWebImage.framework in Frameworks */,
 				BF978DE02357FAB600ED3E32 /* Cosmos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				BF68F1482357215600999C41 /* WebServiceManager.swift */,
-				BF68F15823573C4B00999C41 /* DataLoadOperation.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -136,6 +136,7 @@
 		BF68F15023572B6C00999C41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A9A680AE2359860100294C15 /* SDWebImage.framework */,
 				BF978DDF2357FAB600ED3E32 /* Cosmos.framework */,
 				BF68F15123572B6C00999C41 /* Alamofire.framework */,
 				BF68F15223572B6C00999C41 /* SwiftyJSON.framework */,
@@ -222,6 +223,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Cosmos.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -245,7 +247,6 @@
 				BF68F14323571DDF00999C41 /* Movie.swift in Sources */,
 				BF68F14023571A8000999C41 /* MovieCell.swift in Sources */,
 				BF978DE22357FE1600ED3E32 /* MovieDetailViewController.swift in Sources */,
-				BF68F15923573C4B00999C41 /* DataLoadOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
