@@ -14,60 +14,42 @@ class MovieTableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     //here we use MovieViewModel as the bridge for communication, Controller won't talk to raw custom object any more
-    var movieViewModel = MovieViewModel()
+    var movieViewModels = [MovieViewModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBasicUI()
         fetchMovies()
-        tableView.estimatedRowHeight = 200
-        
-        tableView.rowHeight = UITableView.automaticDimension
         customizeRefreshController()
     }
     
-    @objc private func fetchMovies() {
-        //activityIndicator.startAnimating()
-        self.movieViewModel.retrieveMovies { (success, error) in
-            if !success {
-                DispatchQueue.main.async {
-                    let title = "Error"
-                    if let error = error {
-                        self.showError(title, message: error.localizedDescription)
-                    } else {
-                        self.showError(title, message: NSLocalizedString("Can't retrieve contacts.", comment: "The message displayed when contacts can’t be retrieved."))
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.tableView.refreshControl?.endRefreshing()
-                    self.tableView.reloadData()
-                }
+    @objc fileprivate func fetchMovies() {
+        WebServiceManager.shared.fetchMovies { (movies, err) in
+            
+            if let err = err {
+                print("Failed to fetch movies:", err)
+                return
             }
+            
+            //here we will do an DI and from now on, we will only talk to the MovieViewModel rather than the raw Movie class
+            self.movieViewModels = movies?.map({return MovieViewModel(movie: $0)}) ?? []
+            //if it's an refresh action, we shall end the refreshing
+            self.tableView.refreshControl?.endRefreshing()
+            self.tableView.reloadData()
         }
     }
 }
 
 extension MovieTableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movieViewModel.numberOfMovie
+        return movieViewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-        //we will leave the image downloading process to other delegate methods
-        let movieImageURL = movieViewModel.getMovie(at: indexPath.row).imageHref
-        let movieTitle = movieViewModel.getMovie(at: indexPath.row).title
-        cell.coverImageView.sd_setImage(with: URL(string: movieImageURL)) { (image, error, cache, urls) in
-            if (error != nil) {
-                //Failure code here
-                cell.coverImageView.image = UIImage(named: "NoImageFound")
-            } else {
-                //Success code here
-                cell.coverImageView.image = image
-            }
-        }
-        cell.displayTitle(title: movieTitle)
+
+        let movieViewModel = movieViewModels[indexPath.row]
+        cell.movieViewModel = movieViewModel
         return cell
     }
     
@@ -75,9 +57,7 @@ extension MovieTableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         if let imageVC  = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController{
-            let selectedIndex = indexPath.row
-            imageVC.movieViewModel = movieViewModel
-            imageVC.selectedIndex = selectedIndex
+            imageVC.movieViewModel = movieViewModels[indexPath.row]
             self.navigationController?.pushViewController(imageVC, animated: true)
         }
     }
@@ -113,6 +93,9 @@ extension MovieTableViewController{
         self.navigationController?.navigationBar.barTintColor   = UIColor(red: 204/255, green: 47/255, blue: 40/255, alpha: 1.0) // a lovely red
         
         self.navigationController?.navigationBar.tintColor = UIColor.black
+        
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     func showError(_ title: String, message: String) {

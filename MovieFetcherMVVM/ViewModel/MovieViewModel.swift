@@ -8,39 +8,27 @@
 
 import UIKit
 
-class MovieViewModel {
+struct MovieViewModel {
     
-    var movies: [Movie?] = []
+    let title: String
+    let imageHref: String
+    let rating: Double
+    let releaseDate: String
+    //this text is used to display the exact the rating value beside the star rating widget
+    let ratingText: String
     
-    public var numberOfMovie: Int {
-        return movies.count
-    }
-    
-    public func getMovie(at index: Int) -> Movie{
-        var movie = Movie(title: "sample title", imageHref: "https://1080motion.com/wp-content/uploads/2018/06/NoImageFound.jpg.png", rating: Double(0), releaseDate: "")
-        if (0..<movies.count).contains(index) {
-            movie =  movies[index]!
-        }
-        return movie
-    }
-    
-    //here we will take advantage of WebServiceManager and make an API call to fetch the movie data
-    //here we use completion handler, so no further action will be done until it's completed
-    func retrieveMovies(_ completionBlock: @escaping (_ success: Bool, _ error: Error?) -> ()) {
+    // Dependency Injection (DI)
+    init(movie: Movie) {
+        self.title = movie.title
+        self.imageHref = movie.imageHref
+        self.releaseDate = movie.releaseDate
         
-        WebServiceManager.shared.fetchMovies { (movies, err) in
-
-            if let err = err {
-                print("Failed to fetch movie data:", err)
-                completionBlock(false, err)
-                return
-            }
-
-            self.movies.removeAll()
-            print("there are \(String(describing: movies?.count)) movie objects fetched")
-            //we will transform the array of Movie objects to an array of MovieViewModel objects
-            self.movies = movies ?? []
-            completionBlock(true, nil)
+        if movie.rating == Double(0){
+            self.ratingText = "no rating"
+            self.rating = Double(0)
+        }else{
+            self.rating = movie.rating
+            self.ratingText = "\(movie.rating)/10"
         }
     }
 }

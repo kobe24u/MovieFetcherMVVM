@@ -17,33 +17,28 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var releaseDate: UILabel!
     
     var movieViewModel: MovieViewModel?
-    var selectedIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Movie Details"
-        
-        if let selectedImage = movieViewModel?.getMovie(at: selectedIndex) {
-            DispatchQueue.main.async {
-                self.coverImageView.sd_setImage(with: URL(string: selectedImage.imageHref)) { (image, error, cache, urls) in
-                    if (error != nil) {
-                        //Failure code here
-                        self.coverImageView.image = UIImage(named: "NoImageFound")
-                    } else {
-                        //Success code here
-                        self.coverImageView.image = image
-                    }
-                }
-                self.movieTitle.text = selectedImage.title
-                self.releaseDate.text = selectedImage.releaseDate
-                let movieRating = selectedImage.rating
-                if movieRating == Double(0){
-                    self.starRatingView.text = "no rating"
-                }else{
-                    self.starRatingView.rating = movieRating
-                    self.starRatingView.text = "\(movieRating)/10"
+        showMovieDetails()
+    }
+    
+    func showMovieDetails(){
+        DispatchQueue.main.async {
+            self.coverImageView.sd_setImage(with: URL(string: self.movieViewModel?.imageHref ?? "https://1080motion.com/wp-content/uploads/2018/06/NoImageFound.jpg.png")) { (image, error, cache, urls) in
+                if (error != nil) {
+                    //Failure code here
+                    self.coverImageView.image = UIImage(named: "NoImageFound")
+                } else {
+                    //Success code here
+                    self.coverImageView.image = image
                 }
             }
+            self.movieTitle.text = self.movieViewModel?.title
+            self.releaseDate.text = self.movieViewModel?.releaseDate
+            self.starRatingView.rating = self.movieViewModel?.rating ?? Double(0)
+            self.starRatingView.text = self.movieViewModel?.ratingText
         }
     }
 
