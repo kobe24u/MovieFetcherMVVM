@@ -50,6 +50,10 @@ func downloadImageFrom(_ urlString: String, completeHandler: @escaping (UIImage?
                             completeHandler(image)
                         }
                     }
+                }else{
+                    DispatchQueue.main.async {
+                        completeHandler(UIImage(named: "NoImageFound"))
+                    }
                 }
             }
         }
